@@ -1,62 +1,57 @@
-Real-Time Object Detection 
+Dataset Loading & Preprocessing
 
-📌 Introduction
-This project implements real-time object detection using the YOLO (You Only Look Once) algorithm. The model is fine-tuned on a custom dataset to accurately detect domain-specific objects. 
-YOLO’s single-shot detection approach enables fast and accurate predictions, making it ideal for applications such as surveillance, traffic monitoring, quality inspection, and automation.
+The dataset is stored in a folder structure where each subfolder represents a class (e.g., cats/, dogs/).
 
+The dataset is split into training (80%) and validation (20%) sets.
 
-🎯 Objectives
-Develop an automated object detection system using YOLO.
-Fine-tune a pre-trained YOLO model on a custom dataset.
-Achieve high accuracy and low latency in real-time detection.
-Deploy the model for image and live video processing.
+Images are resized to 128x128 pixels and normalized to the range [0,1] for faster training.
 
+TensorFlow’s AUTOTUNE is used for efficient prefetching and parallel loading.
 
-📂 Dataset Information
-Type: Custom dataset created for specific object classes.
-Source: Images collected from various sources to ensure diversity in backgrounds, lighting, and object orientations.
-Annotation Tool: LabelImg for bounding box labeling.
-Split: 80% Training, 10% Validation, 10% Testing.
-Format: YOLO bounding box format (class x_center y_center width height).
+Model Architecture (CNN)
 
+Conv2D + ReLU → Extracts low-level features like edges.
 
+MaxPooling2D → Reduces image size while keeping important details.
 
-⚙️ Methodology
-Data Collection & Annotation – Collect and label images with bounding boxes.
-Data Preprocessing – Resize images, normalize pixel values, and prepare YOLO-format labels.
-Model Training – Fine-tune a pre-trained YOLO model on the custom dataset.
-Evaluation – Measure model performance using Precision, Recall, and mAP.
-Deployment – Implement for real-time detection via images, videos, or webcam.
+Conv2D + ReLU (deeper) → Extracts more complex patterns.
 
+MaxPooling2D → Again reduces dimensionality.
 
+Flatten → Converts 2D features into 1D vector.
 
-🛠️ Technologies & Tools Used
-Python
-YOLOv5 / YOLOv8 (Ultralytics)
-PyTorch – For deep learning model training
-OpenCV – For image and video processing
-LabelImg – For data annotation
+Dense (128, ReLU) → Fully connected layer to learn feature combinations.
 
+Dense (Softmax) → Final layer that outputs class probabilities.
 
+Training
 
-🚀 Installation & Setup
+Uses Adam optimizer for adaptive learning.
 
-1️⃣ Clone the Repository
-git clone https://github.com/your-username/object-detection-yolo.git
-cd object-detection-yolo
+Sparse categorical crossentropy as the loss function.
 
-2️⃣ Install Dependencies
-pip install -r requirements.txt
+Callbacks:
 
-3️⃣ Run Detection on an Image
-python detect.py --source path/to/image.jpg
+EarlyStopping → Stops training if validation loss doesn’t improve.
 
-4️⃣ Run Real-Time Detection via Webcam
-python detect.py --source 0
+ModelCheckpoint → Saves the best model (best_model.h5).
 
+Saving Outputs
 
+The trained model is saved (model.h5).
 
-🔮 Future Enhancements
-Deploy as a web app using Streamlit or Flask.
-Add tracking for multi-object movement analysis.
-Improve accuracy with larger and more diverse datasets.
+Class names are stored in class_names.json for easy prediction later.
+
+Prediction
+
+A new image can be loaded, preprocessed, and passed to the model.
+
+The model outputs probabilities, and the highest one determines the predicted class.
+
+🔹 Purpose of the Project
+
+To automatically classify images into different categories (cats, dogs, etc.).
+
+Showcases skills in TensorFlow, deep learning, and data preprocessing.
+
+Can be extended with transfer learning or deployed as a web app.
