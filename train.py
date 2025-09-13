@@ -50,14 +50,18 @@ model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
     tf.keras.layers.MaxPooling2D(2, 2),
     tf.keras.layers.Flatten(),
+    # Converts the 2D feature maps into a 1D vector.
+    # if a 32×32×64 feature map → Flatten → gives 65536 values in a single line.
     tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.Dense(len(class_names), activation='softmax')
+    # Softmax turns the outputs into probabilities ([0.05, 0.90, 0.05])
 ])
 
 model.compile(
     optimizer='adam',   #Adam = Adaptive Moment Estimation
     loss='sparse_categorical_crossentropy',
-    metrics=['accuracy']
+    # Loss function = tells the model how wrong its predictions are
+    metrics=['accuracy'] #shows performance in a simple number.
 )
 
 # Add callbacks for early stopping and saving best model
@@ -65,6 +69,9 @@ callbacks = [
     tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True),
     tf.keras.callbacks.ModelCheckpoint('model/best_model.h5', save_best_only=True)
 ]
+
+# EarlyStopping → stop training if no improvement.
+# ModelCheckpoint → save the best model automatically.
 
 # Train model with validation and callbacks
 history = model.fit(train_ds, validation_data=val_ds, epochs=15, callbacks=callbacks)
@@ -75,3 +82,7 @@ print("Validation accuracy:", history.history['val_accuracy'][-1])
 
 model.save("model/model.h5")
 print(" Model and class names saved successfully.")
+
+
+# Epoch: One round of training on the entire dataset.
+# model.fit() → starts training the model.

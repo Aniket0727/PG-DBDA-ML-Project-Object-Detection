@@ -35,6 +35,8 @@ def predict_image(image):
     predicted_class_name = class_names[predicted_class_index]
     confidence = np.max(predictions) * 100
     
+    # Converts it from a fraction (0–1) to a percentage.
+    # 0.90 * 100 = 90%.
     return predicted_class_name, confidence
 
 
