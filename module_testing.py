@@ -3,13 +3,10 @@ import numpy as np
 import json
 import os
 
-
 MODEL_PATH = "model/model.h5"
 CLASS_NAMES_PATH = "model/class_names.json"
 TEST_DIR = "data"  
 
-
-# Load model and class names
 
 model = tf.keras.models.load_model(MODEL_PATH)
 
@@ -33,7 +30,6 @@ test_ds = test_ds.map(lambda x, y: (x / 255.0, y))
 
 
 # Evaluate overall accuracy
-
 y_true = []
 y_pred = []
 
