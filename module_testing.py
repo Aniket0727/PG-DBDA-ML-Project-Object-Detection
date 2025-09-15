@@ -18,6 +18,8 @@ BATCH_SIZE = 32
 
 
 # Loading and preprocessing test dataset
+# loads the test dataset from a directory
+
 test_ds = tf.keras.utils.image_dataset_from_directory(
     TEST_DIR,
     image_size=IMG_SIZE,
@@ -39,6 +41,7 @@ for images, labels in test_ds:
     y_true.extend(labels.numpy())
     y_pred.extend(predicted_labels)
 
+
 y_true = np.array(y_true)
 y_pred = np.array(y_pred)
 
@@ -46,24 +49,17 @@ overall_accuracy = np.mean(y_true == y_pred)
 print(f"Overall Test Accuracy: {overall_accuracy*100:.2f}%")
 
 
-# Confusion matrix
-num_classes = len(class_names)
-conf_matrix = np.zeros((num_classes, num_classes), dtype=int)
 
-for t, p in zip(y_true, y_pred):
-    conf_matrix[t, p] += 1
-
-print("\nConfusion Matrix:")
-print(conf_matrix)
-
-
-# Class-wise accuracy
 print("\nClass-wise Accuracy:")
 for idx, class_name in enumerate(class_names):
+
     true_count = np.sum(y_true == idx)
-    correct_count = conf_matrix[idx, idx]
+    
+    correct_count = np.sum((y_true == idx) & (y_pred == idx))
+    
     if true_count > 0:
         class_acc = correct_count / true_count * 100
         print(f"{class_name}: {class_acc:.2f}% ({correct_count}/{true_count})")
     else:
         print(f"{class_name}: No samples in test set")
+
