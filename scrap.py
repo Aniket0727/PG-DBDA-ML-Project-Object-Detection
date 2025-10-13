@@ -3,6 +3,7 @@ from PIL import Image, ImageEnhance
 import os
 
 
+
 def scrape_images(keyword, folder_name, max_images):
     save_dir = f'data/{folder_name}'
     os.makedirs(save_dir, exist_ok=True)

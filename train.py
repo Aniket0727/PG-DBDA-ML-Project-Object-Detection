@@ -2,6 +2,7 @@ import os
 import json
 import tensorflow as tf
 
+
 os.makedirs("model", exist_ok=True)
 
 # load training dataset with 20% validation split

@@ -3,6 +3,7 @@ import numpy as np
 import json
 import os
 
+
 MODEL_PATH = "model/model.h5"
 CLASS_NAMES_PATH = "model/class_names.json"
 TEST_DIR = "data"  

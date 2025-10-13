@@ -5,7 +5,6 @@ from PIL import Image
 import json
 import os
 
-
 # Loading trained model
 MODEL_PATH = "model/model.h5"
 CLASS_NAMES_PATH = "model/class_names.json" 
