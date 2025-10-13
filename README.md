@@ -6,11 +6,16 @@ This project implements an Object Detection system in Python using machine learn
 
 Key Features:
 
-Detects multiple objects in images and videos
+Detects objects in images
 Draws bounding boxes with labels
 Real-time detection with webcam input
-Option to save processed images/videos
 Uses pretrained models for high accuracy
+
+
+** Testing  **
+
+I test my model on a separate dataset the model hasn’t seen before. I preprocess the images, make predictions, and compare them with true labels to calculate overall and class-wise accuracy. This shows how well the model generalizes and helps identify classes it struggles with.
+
 
 
 Technologies Used:
