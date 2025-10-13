@@ -21,7 +21,7 @@ def scrape_images(keyword, folder_name, max_images):
                 img = Image.open(path).convert("RGB")
 
                 # Resize to 128x128
-                img = img.resize((128, 128), Image.LANCZOS)  #a high-quality resampling filter
+                img = img.resize((128, 128), Image.LANCZOS)
 
                 # Enhance image quality
                 enhancer = ImageEnhance.Brightness(img)
@@ -42,8 +42,6 @@ def scrape_images(keyword, folder_name, max_images):
             print(f"Error processing {path}: {e}")
 
 
-
-# START FROM...
 
 # List of objects to scrape
 objects_to_scrape = {
@@ -68,6 +66,7 @@ objects_to_scrape = {
     "phone": ["smartphone"],
     "watch": ["wrist watch"]
 }
+
 
 # Scrape images for each category
 for folder, keywords in objects_to_scrape.items():

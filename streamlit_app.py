@@ -12,6 +12,7 @@ CLASS_NAMES_PATH = "model/class_names.json"
 
 model = tf.keras.models.load_model(MODEL_PATH)
 
+
 # Loading class names from JSON
 with open(CLASS_NAMES_PATH, "r") as f:
     class_names = json.load(f)
@@ -26,7 +27,6 @@ def preprocess_image(image):
     return img_array
 
 
-# Prediction function
 def predict_image(image):
     processed_img = preprocess_image(image)
     predictions = model.predict(processed_img)
@@ -40,8 +40,9 @@ def predict_image(image):
     return predicted_class_name, confidence
 
 
+
 # Streamlit UI
-st.title(" Object Detection")
+st.title("Object Detection")
 st.write("Upload an image — the model will classify it into one of the trained categories.")
 
 uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])

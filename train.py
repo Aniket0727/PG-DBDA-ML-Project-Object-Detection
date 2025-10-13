@@ -26,8 +26,7 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
 # Get class names before normalization
 class_names = train_ds.class_names
 
-# Print class names for verification
-print("Class names:", class_names)
+# print("Class names:", class_names)
 
 # Normalize pixel values [0, 1]
 train_ds = train_ds.map(lambda x, y: (x / 255.0, y))
@@ -50,18 +49,16 @@ model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
     tf.keras.layers.MaxPooling2D(2, 2),
     tf.keras.layers.Flatten(),
-    # Converts the 2D feature maps into a 1D vector.
-    # if a 32×32×64 feature map → Flatten → gives 65536 values in a single line.
     tf.keras.layers.Dense(128, activation='relu'),
     tf.keras.layers.Dense(len(class_names), activation='softmax')
-    # Softmax turns the outputs into probabilities ([0.05, 0.90, 0.05])
+
 ])
 
 model.compile(
     optimizer='adam',   #Adam = Adaptive Moment Estimation
     loss='sparse_categorical_crossentropy',
     # Loss function = tells the model how wrong its predictions are
-    metrics=['accuracy'] #shows performance in a simple number.
+    metrics=['accuracy']
 )
 
 # Add callbacks for early stopping and saving best model
@@ -73,10 +70,11 @@ callbacks = [
 # EarlyStopping → stop training if no improvement.
 # ModelCheckpoint → save the best model automatically.
 
+
 # Train model with validation and callbacks
 history = model.fit(train_ds, validation_data=val_ds, epochs=15, callbacks=callbacks)
 
-# Print final training and validation accuracy
+
 print("Training accuracy:", history.history['accuracy'][-1])
 print("Validation accuracy:", history.history['val_accuracy'][-1])
 
@@ -85,4 +83,3 @@ print(" Model and class names saved successfully.")
 
 
 # Epoch: One round of training on the entire dataset.
-# model.fit() → starts training the model.

@@ -17,7 +17,6 @@ IMG_SIZE = (128, 128)
 BATCH_SIZE = 32
 
 
-# Loading and preprocessing test dataset
 # loads the test dataset from a directory
 
 test_ds = tf.keras.utils.image_dataset_from_directory(
@@ -47,7 +46,6 @@ y_pred = np.array(y_pred)
 
 overall_accuracy = np.mean(y_true == y_pred)
 print(f"Overall Test Accuracy: {overall_accuracy*100:.2f}%")
-
 
 
 print("\nClass-wise Accuracy:")
