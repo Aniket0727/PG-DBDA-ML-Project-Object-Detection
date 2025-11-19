@@ -2,7 +2,6 @@ import os
 import json
 import tensorflow as tf
 
-
 os.makedirs("model", exist_ok=True)
 
 # load training dataset with 20% validation split
@@ -12,7 +11,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
     subset="training",
     seed=123,
     image_size=(128, 128),
-    batch_size=32  # load images in batches of 32 for training efficiency.
+    batch_size=32
 )
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
@@ -29,12 +28,11 @@ class_names = train_ds.class_names
 
 # print("Class names:", class_names)
 
-# Normalize pixel values [0, 1]
+
 train_ds = train_ds.map(lambda x, y: (x / 255.0, y))
 val_ds = val_ds.map(lambda x, y: (x / 255.0, y))
 
 
-# TensorFlow, you decide the fastest way to load/process data
 AUTOTUNE = tf.data.AUTOTUNE
 train_ds = train_ds.prefetch(buffer_size=AUTOTUNE)
 val_ds = val_ds.prefetch(buffer_size=AUTOTUNE)
@@ -43,7 +41,8 @@ val_ds = val_ds.prefetch(buffer_size=AUTOTUNE)
 with open("model/class_names.json", "w") as f:
     json.dump(class_names, f)
 
-# Define model architecture
+
+# Model architecture
 model = tf.keras.Sequential([
     tf.keras.layers.Conv2D(32, (3,3), activation='relu', input_shape=(128, 128, 3)),
     tf.keras.layers.MaxPooling2D(2, 2),
@@ -62,14 +61,15 @@ model.compile(
     metrics=['accuracy']
 )
 
-# Add callbacks for early stopping and saving best model
+
+# Callbacks for early stopping and saving best model
 callbacks = [
     tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True),
     tf.keras.callbacks.ModelCheckpoint('model/best_model.h5', save_best_only=True)
 ]
 
-# EarlyStopping → stop training if no improvement.
-# ModelCheckpoint → save the best model automatically.
+# EarlyStopping - stop training if no improvement.
+# ModelCheckpoint - save the best model automatically.
 
 
 # Train model with validation and callbacks

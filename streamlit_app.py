@@ -5,6 +5,7 @@ from PIL import Image
 import json
 import os
 
+
 # Loading trained model
 MODEL_PATH = "model/model.h5"
 CLASS_NAMES_PATH = "model/class_names.json" 
@@ -39,7 +40,6 @@ def predict_image(image):
     return predicted_class_name, confidence
 
 
-
 # Streamlit UI
 st.title("Object Detection")
 st.write("Upload an image — the model will classify it into one of the trained categories.")
@@ -48,7 +48,7 @@ uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
-    st.image(image, use_container_width=True)
+    st.image(image, width=300)
 
     label, confidence = predict_image(image)
 
