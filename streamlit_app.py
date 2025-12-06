@@ -7,7 +7,7 @@ import os
 
 
 # Loading trained model
-MODEL_PATH = "model/model.h5"
+MODEL_PATH = "model/best_model.h5"
 CLASS_NAMES_PATH = "model/class_names.json" 
 
 model = tf.keras.models.load_model(MODEL_PATH)
