@@ -7,7 +7,7 @@ import os
 
 
 # Loading trained model
-MODEL_PATH = "model/best_model.h5"
+MODEL_PATH = "https://drive.google.com/file/d/1Gi8VusaxD7LtZuJxMuXUzXUnY4qH70M8/view?usp=sharing"
 CLASS_NAMES_PATH = "model/class_names.json" 
 
 model = tf.keras.models.load_model(MODEL_PATH)
