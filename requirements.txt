@@ -4,4 +4,5 @@ numpy
 pillow
 icrawler
 streamlit-drawable-canvas
+gdown
 opencv-python-headless
